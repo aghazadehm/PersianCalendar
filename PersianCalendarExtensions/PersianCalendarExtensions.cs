@@ -96,12 +96,144 @@ namespace PersianCalendarExtensions
                 throw ex;
             }
         }
-        public static int GetParsiDateKey(this PersianCalendar persianCalendar, string persianDate)
+        public static int GetPersianDateKey(this PersianCalendar persianCalendar, string persianDate)
         {
             if (!IsValidDate(persianCalendar, persianDate)) throw new ArgumentException();
             var date = ConvertToGregorian(persianCalendar, persianDate);
-            var persian = ConvertToPersian(persianCalendar, date);
-            return Convert.ToInt32(persianDate.Replace("/", ""));
+            var evaluatedPersian = ConvertToPersian(persianCalendar, date);
+            return Convert.ToInt32(evaluatedPersian.Replace("/", ""));
         }
+        public static int GetDayOfMonth(this PersianCalendar persianCalendar, string persianDate)
+        {
+            if (!IsValidDate(persianCalendar, persianDate)) throw new ArgumentException();
+            var date = ConvertToGregorian(persianCalendar, persianDate);
+            return persianCalendar.GetDayOfMonth(date);
+        }
+        public static int GetMonth(this PersianCalendar persianCalendar, string persianDate)
+        {
+            if (!IsValidDate(persianCalendar, persianDate)) throw new ArgumentException();
+            var date = ConvertToGregorian(persianCalendar, persianDate);
+            return persianCalendar.GetMonth(date);
+        }
+        public static int GetYear(this PersianCalendar persianCalendar, string persianDate)
+        {
+            if (!IsValidDate(persianCalendar, persianDate)) throw new ArgumentException();
+            var date = ConvertToGregorian(persianCalendar, persianDate);
+            return persianCalendar.GetYear(date);
+        }
+        public static string AddDays(this PersianCalendar persianCalendar, string persianDate, int days)
+        {
+            if (!IsValidDate(persianCalendar, persianDate)) throw new ArgumentException();
+            var date = ConvertToGregorian(persianCalendar, persianDate);
+            return ConvertToPersian(persianCalendar, date.AddDays(days));
+        }
+        public static string AddMonths(this PersianCalendar persianCalendar, string persianDate, int months)
+        {
+            if (!IsValidDate(persianCalendar, persianDate)) throw new ArgumentException();
+            var init = ConvertToGregorian(persianCalendar, persianDate);
+            var final = persianCalendar.AddMonths(init, months);
+            return ConvertToPersian(persianCalendar, final);
+        }
+        public static string AddYear(this PersianCalendar persianCalendar, string persianDate, int number)
+        {
+            try
+            {
+                DateTime initDate = ConvertToGregorian(persianCalendar, persianDate);
+                DateTime finalDate = persianCalendar.AddYears(initDate, number);
+                string finalPersianDate = ConvertToPersian(persianCalendar, finalDate);
+                return finalPersianDate;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public static int GetWeekOfYear(this PersianCalendar persianCalendar, string persianDate)
+        {
+            return 0;
+        }
+        public static int GetDayOfWeek(this PersianCalendar persianCalendar, string persianDate)
+        {
+            try
+            {
+                int day = 0;
+                DateTime date = ConvertToGregorian(persianCalendar, persianDate);
+
+                switch (date.DayOfWeek)
+                {
+                    case DayOfWeek.Sunday:
+                        day = 2;
+                        break;
+                    case DayOfWeek.Monday:
+                        day = 3;
+                        break;
+                    case DayOfWeek.Tuesday:
+                        day = 4;
+                        break;
+                    case DayOfWeek.Wednesday:
+                        day = 5;
+                        break;
+                    case DayOfWeek.Thursday:
+                        day = 6;
+                        break;
+                    case DayOfWeek.Friday:
+                        day = 7;
+                        break;
+                    case DayOfWeek.Saturday:
+                        day = 1;
+                        break;
+                }
+                return day;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public static string GetDayOfWeekName(this PersianCalendar persianCalendar, string persianDate)
+        {
+            string dayOfWeek = "";
+            DateTime date = ConvertToGregorian(persianCalendar, persianDate);
+            switch (date.DayOfWeek)
+            {
+                case System.DayOfWeek.Sunday:
+                    dayOfWeek = "یک شنبه";
+                    break;
+                case System.DayOfWeek.Monday:
+                    dayOfWeek = "دوشنبه";
+                    break;
+                case System.DayOfWeek.Tuesday:
+                    dayOfWeek = "سه شنبه";
+                    break;
+                case System.DayOfWeek.Wednesday:
+                    dayOfWeek = "چهار شنبه";
+                    break;
+                case System.DayOfWeek.Thursday:
+                    dayOfWeek = "پنج شنبه";
+                    break;
+                case System.DayOfWeek.Friday:
+                    dayOfWeek = "جمعه";
+                    break;
+                case System.DayOfWeek.Saturday:
+                    dayOfWeek = "شنبه";
+                    break;
+            }
+            return dayOfWeek;
+        }
+        public static int GetDayOfYear(this PersianCalendar persianCalendar, string persianDate)
+        {
+            DateTime date = ConvertToGregorian(persianCalendar, persianDate);
+            return persianCalendar.GetDayOfYear(date);
+        }
+        public static bool IsLeapYear(this PersianCalendar persianCalendar, int parsiYear)
+        {
+            return persianCalendar.IsLeapYear(parsiYear);
+        }
+        public static bool IsLeapMonth(this PersianCalendar persianCalendar, int parsiYear, int parsiMonth)
+        {
+            return persianCalendar.IsLeapMonth(parsiYear, parsiMonth);
+        }
+
     }
+
 }
