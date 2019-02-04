@@ -103,6 +103,15 @@ namespace PersianCalendarExtensions
             var evaluatedPersian = ConvertToPersian(persianCalendar, date);
             return Convert.ToInt32(evaluatedPersian.Replace("/", ""));
         }
+        public static string GetDate(this PersianCalendar persianCalendar, int persianDateKey)
+        {
+            var key = persianDateKey.ToString();
+            var date = key.Substring(0, 4) +
+                "/" + key.Substring(4, 2) +
+                "/" + key.Substring(6, 2);
+            if(!IsValidDate(persianCalendar, date)) throw new ArgumentException();
+            return date;
+        }
         public static int GetDayOfMonth(this PersianCalendar persianCalendar, string persianDate)
         {
             if (!IsValidDate(persianCalendar, persianDate)) throw new ArgumentException();

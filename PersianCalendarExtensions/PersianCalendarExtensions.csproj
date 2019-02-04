@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Description>This library is extenstion of PersianCalendar class in .net core 2.2</Description>
+    <Authors>Mohammad Aghazadeh</Authors>
+    <Company />
+    <Product>Persian Calendar Extensions</Product>
+    <PackageProjectUrl>https://github.com/aghazadehm/PersianCalendar</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aghazadehm/PersianCalendar</RepositoryUrl>
+    <PackageTags>Persian Calendar Extension Convert</PackageTags>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
